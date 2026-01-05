@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>All Products | SasamiawCO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+
+<style>
+body {
+  background: linear-gradient(#ffd6e8, #fff);
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.page-title {
+  font-family: 'Silkscreen', cursive; /* pixel font */
+  color: #ff7aa2;                     /* pink-ish, adjust freely */
+  font-size: 42px;
+  letter-spacing: 1px;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(to bottom, #f9e2ea, #f9f5fa);
+  padding: 18px 32px;
+  box-shadow: 0 10px 18px rgba(242,140,174,0.55);
+  z-index: 100;
+}
+
+.filters {
+  text-align: center;
+  padding: 0 40px 20px;
+}
+
+.filters button, .filters select {
+  font-family: 'Silkscreen';
+  font-size: 10px;
+  padding: 8px 14px;
+  text-decoration: none;
+  color: #482f55;
+  border-radius: 14px;
+  border: none
+}
+
+.filters button.active {
+  background: #ffd6e8;
+}
+
+.filters button:hover, .filters select:hover {
+  background: #fcf0f4;
+  color: #f6abc4;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(to bottom, #f9e2ea, #f9f5fa);
+  padding: 18px 32px;
+  box-shadow: 0 10px 18px rgba(242,140,174,0.55);
+  z-index: 100;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.products {
+  padding: 40px 8% 80px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 8px 8px 0 #f8cddc;
+  border:#f6abc4 2px solid;
+  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.product-card h3 {
+  font-family: 'Silkscreen', cursive;
+  font-size: 16px;
+  color: #ff7aa2;
+  margin: 6px 0 4px;
+}
+
+.product-card small {
+  font-family: 'Silkscreen', cursive;
+  font-size: 11px;
+  color: #b48ead;
+  letter-spacing: 0.5px;
+}
+
+.product-card .price {
+  font-family: 'Silkscreen', cursive;
+  font-size: 14px;
+  color: #6b4b5a;
+  margin: 6px 0;
+}
+
+@media (max-width: 900px) {
+  .products { grid-template-columns: repeat(2,1fr); }
+}
+
+.back-wrapper {
+  text-align: left;
+  padding: 0 40px 20px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background: #f28cae;
+  color: #5c0a25;
+  border-radius: 12px;
+  font-family: 'Silkscreen';
+  text-decoration: none;
+  box-shadow: 10px 10px 0 #f8cddc;
+}
+
+.back-btn:hover {
+  transform: translate(2px,2px);
+  box-shadow: 10px 10px 0 #f8cddc;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+}
+
+.product-search {
+  width: 280px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: none;              /* kills the black border */
+  font-family: 'Silkscreen';
+  text-align: right;
+  background: #fff0f5;
+}
+
+@media (max-width: 1024px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
+}
+
+.product-actions {
+  display: flex;
+  gap: 12px;
+  padding: 0 40px 20px;
+}
+
+.order-btn,
+.cart-btn {
+  flex: 1;
+  font-family: 'Silkscreen', cursive;
+  font-size: 11px;
+  padding: 8px 0;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.order-btn {
+  background: #ffd6e6;
+  color: #6b4b5a;
+  text-decoration: none;
+}
+
+.cart-btn {
+  background: #ff9fba;
+  color: #fff;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<header>
+    <h1 class="page-title">All Products Available</h1>
+      <input
+    type="text"
+    class="product-search"
+    placeholder="Search fluffy keychains..."
+  >
+</div>
+</header>
+
+<div class="back-wrapper">
+  <a href="index.html" class="back-btn">← Back to Home</a>
+</div>
+
+<div class="filters">
+  <button onclick="filterType('all')" class="active">All</button>
+  <button onclick="filterType('plush')">Plush</button>
+  <button onclick="filterType('acrylic')">Acrylic</button>
+  <button onclick="filterType('enamel')">Enamel</button>
+
+  <select onchange="sortProducts(this.value)">
+    <option value="">Sort By</option>
+    <option value="price-asc">Price: Low → High</option>
+    <option value="price-desc">Price: High → Low</option>
+    <option value="newest">Newest</option>
+    <option value="oldest">Oldest</option>
+  </select>
+</div>
+
+<div class="product-actions">
+  <a class="order-btn"
+     href="https://wa.me/6289630310292?text=Hi!%20I%20want%20to%20order%20Chiikawa%20Plush%20Keychain">
+     Order
+  </a>
+
+  <button class="cart-btn" onclick="addToCart('Chiikawa Plush Keychain', 105000)">
+    + Cart
+  </button>
+</div>
+
+<section class="products" id="productList">
+
+  <!-- PRODUCT CARD -->
+  <div class="product-card">
+  <div class="product-img">
+    <img src="images/Chiikawa-plush.jpeg">
+  </div>
+
+  <small>Plush Keychain</small>
+  <h3>Chiikawa Plush Keychain</h3>
+  <div class="price">IDR 105.000</div>
+
+  <div class="product-actions">
+    <a class="order-btn"
+       href="https://wa.me/6289630310292?text=Hi!%20I%20want%20to%20order%20Hachiware%20Plush%20Keychain%20(IDR%2095.000)">
+       Order Now
+    </a>
+    <button class="cart-btn">+ Cart</button>
+  </div>
+</div>
+
+  <div class="product-card">
+  <div class="product-img">
+    <img src="images/chiikawa baker.png">
+  </div>
+
+  <small>Acrylic Keychain</small>
+  <h3>Chiikawa Acrylic Keychain</h3>
+  <div class="price">IDR 45.000</div>
+
+  <div class="product-actions">
+    <a class="order-btn"
+       href="https://wa.me/6289630310292?text=Hi!%20I%20want%20to%20order%20Chiikawa%20Acrylic%20Keychain%20(IDR%2045.000)">
+       Order Now
+    </a>
+    <button class="cart-btn">+ Cart</button>
+  </div>
+</div>
+
+  <div class="product-card">
+  <div class="product-img">
+    <img src="images/usagi-limited.png">
+  </div>
+
+  <small>Plush Keychain</small>
+  <h3>Usagi Plush Keychain</h3>
+  <div class="price">IDR 115.000</div>
+
+  <div class="product-actions">
+    <a class="order-btn"
+       href="https://wa.me/6289630310292?text=Hi!%20I%20want%20to%20order%20Usagi%20Plush%20Keychain%20(IDR%20115.000)">
+       Order Now
+    </a>
+    <button class="cart-btn">+ Cart</button>
+  </div>
+</div>
+
+<div class="product-card">
+  <div class="product-img">
+    <img src="images/rakko-plush.jpeg">
+  </div>
+
+  <small>Plush Keychain</small>
+  <h3>Rakko Plush Keychain</h3>
+  <div class="price">IDR 95.000</div>
+
+  <div class="product-actions">
+    <a class="order-btn"
+       href="https://wa.me/6289630310292?text=Hi!%20I%20want%20to%20order%20Rakko%20Plush%20Keychain%20(IDR%2095.000)">
+       Order Now
+    </a>
+    <button class="cart-btn">+ Cart</button>
+  </div>
+</div>
+
+<div class="product-card">
+  <div class="product-img">
+    <img src="images/hachiware-acrylic.png">
+  </div>
+
+  <small>Acrylic Keychain</small>
+  <h3>Hachiware Acrylic Keychain</h3>
+  <div class="price">IDR 55.000</div>
+
+  <div class="product-actions">
+    <a class="order-btn"
+       href="https://wa.me/6289630310292?text=Hi!%20I%20want%20to%20order%20Hachiware%20Acrylic%20Keychain%20(IDR%2055.000)">
+       Order Now
+    </a>
+    <button class="cart-btn">+ Cart</button>
+  </div>
+</div>
+
+<div class="product-card">
+  <div class="product-img">
+    <img src="images/Hachiware-plush.jpeg">
+  </div>
+
+  <small>Plush Keychain</small>
+  <h3>Hachiware Plush Keychain</h3>
+  <div class="price">IDR 95.000</div>
+
+  <div class="product-actions">
+    <a class="order-btn"
+       href="https://wa.me/6289630310292?text=Hi!%20I%20want%20to%20order%20Hachiware%20Plush%20Keychain%20(IDR%2095.000)">
+       Order Now
+    </a>
+    <button class="cart-btn">+ Cart</button>
+  </div>
+</div>
+
+<div class="product-card">
+  <div class="product-img">
+    <img src="images/shisa-limited.png">
+  </div>
+
+  <small>Plush Keychain</small>
+  <h3>Shisa Limited Plush Keychain</h3>
+  <div class="price">IDR 100.000</div>
+
+  <div class="product-actions">
+    <a class="order-btn"
+       href="https://wa.me/6289630310292?text=Hi!%20I%20want%20to%20order%20Shisa%20Limited%20Plush%20Keychain%20(IDR%20100.000)">
+       Order Now
+    </a>
+    <button class="cart-btn">+ Cart</button>
+  </div>
+</div>
+
+  <!-- ADD MORE WITH SAME FORMAT -->
+
+</section>
+
+<script>
+function filterType(type) {
+  document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.style.display =
+      type === 'all' || card.dataset.type === type ? 'block' : 'none';
+  });
+}
+
+function sortProducts(value) {
+  const container = document.getElementById('productList');
+  const cards = Array.from(container.children);
+
+  cards.sort((a,b) => {
+    if (value === 'price-asc') return a.dataset.price - b.dataset.price;
+    if (value === 'price-desc') return b.dataset.price - a.dataset.price;
+    if (value === 'newest') return new Date(b.dataset.date) - new Date(a.dataset.date);
+    if (value === 'oldest') return new Date(a.dataset.date) - new Date(b.dataset.date);
+  });
+
+  cards.forEach(card => container.appendChild(card));
+}
+</script>
+
+</body>
+</html>
